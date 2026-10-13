@@ -1,0 +1,6 @@
+---
+const { a } = Astro.props;
+---
+{a.sprite
+  ? <img class="px" src={a.sprite} alt={a.nombre} />
+  : <img class="px ph" src="/sprites/placeholder.svg" alt={`${a.nombre} (sprite pendiente)`} />}

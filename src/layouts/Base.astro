@@ -1,0 +1,34 @@
+---
+import '../styles/global.css';
+import { site } from '../data/site.js';
+const { title, description = 'El zoo es atacado por alienígenas y sus animales tienen que defenderlo. Un juego de supervivencia por oleadas.' } = Astro.props;
+const nav = [['/', 'Inicio'], ['/animales/', 'Animales'], ['/armas/', 'Armas'], ['/enemigos/', 'Enemigos'], ['/novedades/', 'Novedades']];
+const path = Astro.url.pathname;
+const activo = (h) => h === '/' ? path === '/' : path.startsWith(h.slice(0, -1));
+const fullTitle = title ? `${title} · ${site.nombre}` : site.nombre;
+---
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{fullTitle}</title>
+  <meta name="description" content={description} />
+  <link rel="icon" href="/sprites/ufo.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&family=Press+Start+2P&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <header class="top">
+    <div class="wrap bar">
+      <a class="logo" href="/"><img class="px" src="/sprites/ufo.svg" alt="" width="34" height="16" />{site.nombre}</a>
+      <nav aria-label="Principal">
+        {nav.map(([h, t]) => <a href={h} aria-current={activo(h) ? 'page' : undefined}>{t}</a>)}
+      </nav>
+    </div>
+  </header>
+  <main><slot /></main>
+  <footer class="wrap foot">{site.nombre} · Juego en desarrollo · <a href={site.contacto}>Contacto</a></footer>
+</body>
+</html>

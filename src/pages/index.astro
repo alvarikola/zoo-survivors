@@ -1,0 +1,51 @@
+---
+import Sprite from '../components/Sprite.astro';
+import Base from '../layouts/Base.astro';
+import { animales } from '../data/animales.js';
+import { site } from '../data/site.js';
+---
+<Base>
+  <section class="hero">
+    <div class="sky" aria-hidden="true">
+      <img class="px ufo" src="/sprites/ufo.svg" alt="" /><span class="beam"></span>
+      <img class="px al a1" src="/sprites/alien.svg" alt="" /><img class="px al a2" src="/sprites/alien.svg" alt="" /><img class="px al a3" src="/sprites/alien.svg" alt="" />
+    </div>
+    <div class="wrap heroTxt">
+      <h1>Zoo Survivors</h1>
+      <p class="lead">Una noche, el cielo sobre el zoo se llenó de luces. Ahora los animales son la última defensa.</p>
+      <div class="btns">
+        {site.descarga
+          ? <a class="btn" href={site.descarga}>Descargar el juego</a>
+          : <span class="btn off">Descarga próximamente</span>}
+        <a class="btn alt" href="/animales/">Conocer a los animales</a>
+      </div>
+    </div>
+    <div class="ground" aria-hidden="true"><Sprite a={animales[0]} /><Sprite a={animales[1]} /></div>
+  </section>
+
+  <section class="wrap block">
+    <h2>La historia</h2>
+    <p>El zoo cierra sus puertas cuando aparece una flota de naves alienígenas. Los cuidadores huyen, las jaulas se abren y los animales se dan cuenta de que solo ellos pueden proteger su hogar. Oleada tras oleada, tendrán que aguantar hasta el amanecer.</p>
+  </section>
+
+  <section class="wrap block">
+    <h2>Cómo se juega</h2>
+    <div class="grid3">
+      <div class="card"><h3>Sobrevive a la oleada</h3><p>Los alienígenas llegan desde todos lados. Tu animal ataca solo, tú te encargas de moverte y esquivar.</p></div>
+      <div class="card"><h3>Compra entre rondas</h3><p>Usa lo que recoges para conseguir armas y objetos y monta tu propia estrategia.</p></div>
+      <div class="card"><h3>Prueba otro animal</h3><p>Cada personaje cambia la forma de jugar. Empieza con el perro y descubre el resto.</p></div>
+    </div>
+  </section>
+
+  <section class="wrap block">
+    <h2>Los defensores</h2>
+    <div class="grid3">
+      {animales.map((a) => (
+        <a class="card animal" href={`/animales/${a.slug}/`}>
+          <span class="em"><Sprite a={a} /></span><h3>{a.nombre}</h3><p>{a.resumen}</p><span class="tag">{a.bonus}</span>
+        </a>
+      ))}
+      <div class="card animal ghost"><span class="em"><img class="px ph" src="/sprites/placeholder.svg" alt="" /></span><h3>Más animales</h3><p>Otros defensores están en camino.</p><span class="tag">próximamente</span></div>
+    </div>
+  </section>
+</Base>

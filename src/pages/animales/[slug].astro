@@ -1,0 +1,26 @@
+---
+import Sprite from '../../components/Sprite.astro';
+import Base from '../../layouts/Base.astro';
+import { animales } from '../../data/animales.js';
+export function getStaticPaths() {
+  return animales.map((a) => ({ params: { slug: a.slug }, props: { a } }));
+}
+const { a } = Astro.props;
+---
+<Base title={a.nombre} description={a.resumen}>
+  <section class="wrap page">
+    <a class="back" href="/animales/">← Todos los animales</a>
+    <div class="ficha">
+      <div class="portrait"><Sprite a={a} /></div>
+      <div>
+        <h1>{a.nombre}</h1>
+        <span class="tag">{a.bonus}</span>
+        <p class="lead">{a.descripcion}</p>
+        <h2>Estadísticas</h2>
+        <table>
+          <tbody>{a.stats.map(([k, v]) => <tr><th scope="row">{k}</th><td>{v}</td></tr>)}</tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</Base>
